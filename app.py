@@ -38,7 +38,7 @@ st.markdown("""
         justify-content: center;
     }
     .logo-container img {
-        height: 45px;
+        height: 145px;
         width: auto;
         display: block;
     }
