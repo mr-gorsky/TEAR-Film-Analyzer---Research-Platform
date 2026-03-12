@@ -51,7 +51,7 @@ st.markdown("""
 </style>
 
 <div class="logo-container">
-    <img src="https://raw.githubusercontent.com/toni-mandusic/tear-film-analyzer/main/Phantasmed-logo.png" 
+    <img src="https://github.com/mr-gorsky/TEAR-Film-Analyzer---Research-Platform/blob/fb2102bf89fbeb068f803c26012afdbd63ebd6f5/Phantasmed-logo.png" 
          alt="Phantasmed Logo">
 </div>
 """, unsafe_allow_html=True)
