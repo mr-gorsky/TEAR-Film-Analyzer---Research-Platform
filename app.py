@@ -10,10 +10,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime, time
 import io
-# ============================================
-# PHANTASMED LOGO 
-# ============================================
-st.sidebar.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=200)
 
 # Page config
 st.set_page_config(
@@ -22,10 +18,17 @@ st.set_page_config(
     layout="wide"
 )
 
-</div>
-""", unsafe_allow_html=True)
-</div>
-""", unsafe_allow_html=True)
+# ============================================
+# PHANTASMED LOGO - U HEADERU
+# ============================================
+col1, col2 = st.columns([3, 1])
+with col1:
+    st.title("🧪 TEAR-Film Analyzer")
+with col2:
+    st.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=150)
+
+st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
+st.markdown("---")
 
 # Initialize session state
 if 'biomarker_data' not in st.session_state:
@@ -48,11 +51,6 @@ if 'user_role' not in st.session_state:
     
 if 'user_site' not in st.session_state:
     st.session_state.user_site = None
-
-# Header
-st.title("🧪 TEAR-Film Analyzer")
-st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
-st.markdown("---")
 
 # ============================================
 # USER LOGIN SYSTEM - MAASTRICHT VERSION
