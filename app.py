@@ -39,7 +39,35 @@ if 'user_role' not in st.session_state:
     
 if 'user_site' not in st.session_state:
     st.session_state.user_site = None
+    
+# Custom CSS za pozicioniranje loga
+st.markdown("""
+<style>
+    .logo-container {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        z-index: 1000;
+        background-color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .logo-container img {
+        height: 40px;
+        width: auto;
+    }
+    @media print {
+        .logo-container {
+            display: none;
+        }
+    }
+</style>
 
+<div class="logo-container">
+    <img src="https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png" alt="Phantasmed Logo">
+</div>
+""", unsafe_allow_html=True)
 # Header
 st.title("🧪 TEAR-Film Analyzer")
 st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
