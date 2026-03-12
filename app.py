@@ -10,6 +10,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime, time
 import io
+# ============================================
+# PHANTASMED LOGO 
+# ============================================
+st.sidebar.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=200)
 
 # Page config
 st.set_page_config(
@@ -18,46 +22,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# ============================================
-# PHANTASMED LOGO - POZICIONIRAN ISPOD GITHUB TOOLBARA
-# ============================================
-st.markdown("""
-<style>
-    .logo-container {
-        position: fixed;
-        top: 60px;  /* Pomaknuto niže da bude ispod GitHub toolbara */
-        right: 20px;
-        z-index: 1000;
-        background-color: white;
-        padding: 8px 15px;
-        border-radius: 30px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        border: 1px solid #e0e0e0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .logo-container img {
-        height: 45px;
-        width: auto;
-        display: block;
-    }
-    @media print {
-        .logo-container {
-            display: none;
-        }
-    }
-    /* Dodatni padding za glavni sadržaj */
-    .main-header {
-        margin-top: 0;
-        padding-top: 0;
-    }
-</style>
-
-<div class="logo-container">
-    <img src="https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png" 
-         alt="Phantasmed Logo"
-         onerror="this.onerror=null; this.src='https://via.placeholder.com/150x50?text=Phantasmed';">
 </div>
 """, unsafe_allow_html=True)
 </div>
