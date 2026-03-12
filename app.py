@@ -1,6 +1,7 @@
 """
 TEAR-Film Analyzer - Research Platform
 TEAR-RG Compliant Data Collection for Tear Fluid Phenotyping
+Maastricht UMC - TEAR-Precision Version
 """
 
 import streamlit as st
@@ -12,7 +13,7 @@ import io
 
 # Page config
 st.set_page_config(
-    page_title="TEAR-Film Analyzer",
+    page_title="TEAR-Film Analyzer - Maastricht UMC",
     page_icon="🧪",
     layout="wide"
 )
@@ -41,47 +42,49 @@ if 'user_site' not in st.session_state:
 
 # Header
 st.title("🧪 TEAR-Film Analyzer")
-st.markdown("### Research Platform for Tear Fluid Phenotyping")
+st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
 st.markdown("---")
 
 # ============================================
-# 2️⃣ USER LOGIN SYSTEM
+# 2️⃣ USER LOGIN SYSTEM - MAASTRICHT VERSION
 # ============================================
 with st.sidebar:
     if not st.session_state.authenticated:
         st.header("🔐 Login")
         
-        # Site selection
+        # Site selection - Maastricht fokus
         site = st.selectbox("Select Site", [
-            "Clinic A - Amsterdam",
-            "Clinic B - Berlin", 
-            "Clinic C - London",
-            "Lab - Central Analysis"
+            "Maastricht UMC - Core Lab",
+            "Maastricht UMC - Clinic",
+            "External Collaborator"
         ])
         
         # Role selection
         role = st.selectbox("Role", [
+            "Principal Investigator",
             "Clinician",
             "Lab Technician",
             "Researcher",
             "Study Coordinator"
         ])
         
-        # Simple login (for pilot - would be replaced with real auth)
+        # Simple login with Maastricht password
         password = st.text_input("Password", type="password")
         
         if st.button("Login", use_container_width=True):
-            if password == "tear2025":  # Simple pilot password
+            # Maastricht password for TEAR-Precision
+            if password == "tear2025":  # Pilot password - change for production
                 st.session_state.authenticated = True
                 st.session_state.user_site = site
                 st.session_state.user_role = role
                 st.rerun()
             else:
-                st.error("Invalid password")
+                st.error("Invalid password. For TEAR-Precision pilot use: tear2025")
     else:
         st.header(f"✅ Logged In")
         st.write(f"**Site:** {st.session_state.user_site}")
         st.write(f"**Role:** {st.session_state.user_role}")
+        st.write(f"**Institution:** Maastricht UMC")
         
         if st.button("Logout", use_container_width=True):
             st.session_state.authenticated = False
@@ -99,7 +102,7 @@ if st.session_state.authenticated:
         
         study_id = st.text_input("Study ID", value="TP-2025-001")
         # Site ID automatski iz logina
-        site_id = st.session_state.user_site.split(" - ")[0]
+        site_id = "MUMC"
         st.info(f"**Site ID:** {site_id}")
         
         patient_id = st.text_input("Patient ID", value="P-001")
@@ -129,7 +132,7 @@ if st.session_state.authenticated:
     ])
     
     # ============================================
-    # 3️⃣ PATIENT DEMOGRAPHICS (NEW TAB)
+    # 3️⃣ PATIENT DEMOGRAPHICS
     # ============================================
     with tab1:
         st.header("Patient Demographics")
@@ -274,7 +277,7 @@ if st.session_state.authenticated:
             pooling = st.selectbox("Pooling of samples", ["No", "Yes - both eyes", "Yes - multiple strips", "Yes - other"])
             blood_contamination = st.selectbox("Blood contamination", ["None", "Trace", "Visible", "Not assessed"])
     
-    # TAB 3: Sample Processing (isti kao prije)
+    # TAB 4: Sample Processing
     with tab4:
         st.header("Sample Storage & Processing")
         st.caption("TEAR-RG Storage S1-S3 and Processing P1-P6")
@@ -329,7 +332,7 @@ if st.session_state.authenticated:
                     value = st.number_input(
                         f"{biomarker} ({units[biomarker]})",
                         value=st.session_state.biomarker_data[biomarker],
-                        min_value=0.0,  # 5️⃣ SPRJEČAVA NEGATIVNE VRIJEDNOSTI
+                        min_value=0.0,  # SPRJEČAVA NEGATIVNE VRIJEDNOSTI
                         format="%.2f",
                         key=f"input_{biomarker}"
                     )
@@ -338,7 +341,7 @@ if st.session_state.authenticated:
                 with col_b2:
                     st.caption(f"Unit: {units[biomarker]}")
                     
-                    # 5️⃣ UNIT VALIDATION
+                    # Unit validation warnings
                     if biomarker in ["IL-6", "TNF-α"] and value > 1000:
                         st.warning("⚠️ >1000 pg/mL - verify value")
                     elif biomarker == "MMP-9" and value > 500:
@@ -352,7 +355,7 @@ if st.session_state.authenticated:
             loq = st.number_input("LOQ", 0.0, 100.0, 3.0)
             qc_used = st.radio("QC samples", ["Yes", "No"])
         
-        # EXPORT SEKCIJA (proširena s novim varijablama)
+        # EXPORT SEKCIJA
         st.markdown("---")
         st.header("📥 Data Export")
         
@@ -363,12 +366,13 @@ if st.session_state.authenticated:
             "site_id": site_id,
             "site_full": st.session_state.user_site,
             "user_role": st.session_state.user_role,
+            "institution": "Maastricht UMC",
             "patient_id": patient_id,
             "visit_number": visit_number,
             "exam_date": str(exam_date),
             "eyes_examined": ", ".join(eyes_to_examine),
             
-            # Demographics (NEW)
+            # Demographics
             "age": age,
             "sex": sex,
             "systemic_diseases": ", ".join(systemic_diseases) if systemic_diseases else "",
@@ -398,7 +402,7 @@ if st.session_state.authenticated:
             "staining_method": staining_method,
             "staining_scale": staining_scale,
             
-            # Collection with timestamp (NEW)
+            # Collection with timestamp
             "collection_date": str(collection_date),
             "collection_time": str(collection_time),
             "time_category": time_category,
@@ -452,7 +456,7 @@ if st.session_state.authenticated:
         
         df_current = pd.DataFrame([current_patient])
         
-        # Export opcije (isto kao prije)
+        # Export opcije
         col_csv, col_excel, col_bulk = st.columns(3)
         
         with col_csv:
@@ -501,7 +505,7 @@ if st.session_state.authenticated:
         with st.expander("Preview current patient data"):
             st.dataframe(df_current, use_container_width=True)
 
-    # TAB 6: Visualizations (isti)
+    # TAB 6: Visualizations
     with tab6:
         st.header("📈 Exploratory Data Analysis")
         st.caption("Upload your exported data for visualization")
@@ -515,7 +519,7 @@ if st.session_state.authenticated:
                 else:
                     df = pd.read_excel(uploaded_file)
                 
-                st.success(f"Loaded {len(df)} records")
+                st.success(f"Loaded {len(df)} records from Maastricht UMC dataset")
                 
                 with st.expander("📊 Dataset Overview"):
                     st.dataframe(df.describe(), use_container_width=True)
@@ -526,11 +530,11 @@ if st.session_state.authenticated:
                     st.subheader("TBUT Distribution")
                     tbut_cols = [col for col in df.columns if 'tbut' in col.lower()]
                     if tbut_cols:
-                        for col in tbut_cols[:2]:  # Show first two TBUT columns
+                        for col in tbut_cols[:2]:
                             if col in df.columns:
                                 fig_tbut = px.histogram(
                                     df, x=col, nbins=20,
-                                    title=f'{col} Distribution',
+                                    title=f'{col} Distribution - Maastricht Cohort',
                                     labels={col: col, 'count': 'Number of Patients'}
                                 )
                                 st.plotly_chart(fig_tbut, use_container_width=True)
@@ -544,7 +548,7 @@ if st.session_state.authenticated:
                             corr_matrix,
                             text_auto=True,
                             aspect="auto",
-                            title="Biomarker Correlations"
+                            title="Biomarker Correlations - Maastricht Data"
                         )
                         st.plotly_chart(fig_heatmap, use_container_width=True)
                         
@@ -557,7 +561,7 @@ if st.session_state.authenticated:
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; color: #666;">
-        <p><strong>TEAR-Film Analyzer v3.0</strong> | TEAR-RG Compliant | Delphi Consensus 2025</p>
+        <p><strong>TEAR-Film Analyzer v3.0</strong> | Maastricht UMC - TEAR-Precision</p>
         <p style="font-size: 0.8rem;">Based on: Schmeetz J, et al. Contact Lens and Anterior Eye 2025;48:102448</p>
         <p style="font-size: 0.8rem;">For research use only | WG1, WG2, WG3, WG8 ready</p>
     </div>
@@ -565,4 +569,5 @@ if st.session_state.authenticated:
 
 else:
     # Show login prompt
-    st.info("👈 Please log in using the sidebar to access the platform")
+    st.info("👈 Please log in using the sidebar to access the TEAR-Precision platform")
+    st.image("https://www.maastrichtuniversity.nl/sites/default/files/styles/medium/public/logo_maastricht_university.png", width=300)
