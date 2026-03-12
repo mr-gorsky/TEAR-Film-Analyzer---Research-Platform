@@ -18,15 +18,13 @@ st.set_page_config(
     layout="wide"
 )
 
-# ============================================
-# PHANTASMED LOGO - IZ GITHUBA (bez mijenjanja!)
-# ============================================
+ ============================================
 st.markdown("""
 <style>
     .logo-container {
         position: fixed;
-        top: 10px;
-        right: 20px;
+        top: 100px;
+        right: 200px;
         z-index: 1000;
         background-color: white;
         padding: 8px 15px;
