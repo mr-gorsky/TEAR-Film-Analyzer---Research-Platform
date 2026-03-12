@@ -18,11 +18,14 @@ st.set_page_config(
     layout="wide"
 )
 
+# ============================================
+# PHANTASMED LOGO - POZICIONIRAN ISPOD GITHUB TOOLBARA
+# ============================================
 st.markdown("""
 <style>
     .logo-container {
         position: fixed;
-        top: 10px;
+        top: 60px;  /* Pomaknuto niže da bude ispod GitHub toolbara */
         right: 20px;
         z-index: 1000;
         background-color: white;
@@ -44,6 +47,7 @@ st.markdown("""
             display: none;
         }
     }
+    /* Dodatni padding za glavni sadržaj */
     .main-header {
         margin-top: 0;
         padding-top: 0;
@@ -51,8 +55,11 @@ st.markdown("""
 </style>
 
 <div class="logo-container">
-    <img src="https://github.com/mr-gorsky/TEAR-Film-Analyzer---Research-Platform/blob/fb2102bf89fbeb068f803c26012afdbd63ebd6f5/Phantasmed-logo.png" 
-         alt="Phantasmed Logo">
+    <img src="https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png" 
+         alt="Phantasmed Logo"
+         onerror="this.onerror=null; this.src='https://via.placeholder.com/150x50?text=Phantasmed';">
+</div>
+""", unsafe_allow_html=True)
 </div>
 """, unsafe_allow_html=True)
 
