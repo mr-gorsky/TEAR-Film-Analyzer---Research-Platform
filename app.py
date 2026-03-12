@@ -18,6 +18,44 @@ st.set_page_config(
     layout="wide"
 )
 
+# ============================================
+# PHANTASMED LOGO - GORNJI DESNI KUT
+# ============================================
+st.markdown("""
+<style>
+    .logo-container {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        z-index: 1000;
+        background-color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
+    }
+    .logo-container img {
+        height: 40px;
+        width: auto;
+        display: block;
+    }
+    @media print {
+        .logo-container {
+            display: none;
+        }
+    }
+    /* Adjust main content to not be hidden under fixed logo */
+    .main-header {
+        margin-top: 0;
+        padding-top: 0;
+    }
+</style>
+
+<div class="logo-container">
+    <img src="https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png" alt="Phantasmed Logo">
+</div>
+""", unsafe_allow_html=True)
+
 # Initialize session state
 if 'biomarker_data' not in st.session_state:
     st.session_state.biomarker_data = {
@@ -39,42 +77,14 @@ if 'user_role' not in st.session_state:
     
 if 'user_site' not in st.session_state:
     st.session_state.user_site = None
-    
-# Custom CSS za pozicioniranje loga
-st.markdown("""
-<style>
-    .logo-container {
-        position: fixed;
-        top: 10px;
-        right: 20px;
-        z-index: 1000;
-        background-color: white;
-        padding: 5px 15px;
-        border-radius: 30px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .logo-container img {
-        height: 40px;
-        width: auto;
-    }
-    @media print {
-        .logo-container {
-            display: none;
-        }
-    }
-</style>
 
-<div class="logo-container">
-    <img src="https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png" alt="Phantasmed Logo">
-</div>
-""", unsafe_allow_html=True)
 # Header
 st.title("🧪 TEAR-Film Analyzer")
 st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
 st.markdown("---")
 
 # ============================================
-# 2️⃣ USER LOGIN SYSTEM - MAASTRICHT VERSION
+# USER LOGIN SYSTEM - MAASTRICHT VERSION
 # ============================================
 with st.sidebar:
     if not st.session_state.authenticated:
@@ -101,7 +111,7 @@ with st.sidebar:
         
         if st.button("Login", use_container_width=True):
             # Maastricht password for TEAR-Precision
-            if password == "tear2025":  # Pilot password - change for production
+            if password == "tear2025":
                 st.session_state.authenticated = True
                 st.session_state.user_site = site
                 st.session_state.user_role = role
@@ -123,20 +133,19 @@ with st.sidebar:
 # Only show main app if authenticated
 if st.session_state.authenticated:
     
-    # Sidebar - Study Info (uvijek vidljivo)
+    # Sidebar - Study Info
     with st.sidebar:
         st.markdown("---")
         st.header("📋 Study Information")
         
         study_id = st.text_input("Study ID", value="TP-2025-001")
-        # Site ID automatski iz logina
         site_id = "MUMC"
         st.info(f"**Site ID:** {site_id}")
         
         patient_id = st.text_input("Patient ID", value="P-001")
         visit_number = st.number_input("Visit Number", min_value=1, max_value=10, value=1)
         
-        # Eye selection - sada za oba oka
+        # Eye selection
         st.subheader("👁️ Eyes Examined")
         eyes_to_examine = st.multiselect(
             "Select eyes for this visit",
@@ -149,7 +158,7 @@ if st.session_state.authenticated:
         st.markdown("---")
         st.caption("TEAR-RG v1.0 | Delphi Consensus 2025")
     
-    # Glavni tabovi
+    # Main tabs
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "👤 Demographics", 
         "👁️ Clinical Data", 
@@ -159,9 +168,7 @@ if st.session_state.authenticated:
         "📈 Visualizations"
     ])
     
-    # ============================================
-    # 3️⃣ PATIENT DEMOGRAPHICS
-    # ============================================
+    # TAB 1: Patient Demographics
     with tab1:
         st.header("Patient Demographics")
         st.caption("Important confounders for biomarker analysis")
@@ -173,7 +180,6 @@ if st.session_state.authenticated:
             sex = st.selectbox("Sex", ["Male", "Female", "Other", "Prefer not to say"])
             
             st.subheader("Systemic Diseases")
-            st.caption("Select all that apply")
             systemic_diseases = st.multiselect(
                 "Systemic conditions",
                 ["None", "Diabetes", "Hypertension", "Rheumatoid Arthritis", 
@@ -182,7 +188,6 @@ if st.session_state.authenticated:
             
         with col2:
             st.subheader("Current Medications")
-            st.caption("Medications that may affect tear film")
             medications = st.multiselect(
                 "Medications",
                 ["None", "Antihistamines", "Antidepressants", "Beta-blockers",
@@ -193,9 +198,7 @@ if st.session_state.authenticated:
             smoking = st.radio("Smoking status", ["Never", "Former", "Current"])
             cl_wear_general = st.radio("Contact lens wearer", ["Yes", "No"])
     
-    # ============================================
-    # 4️⃣ EYE-SPECIFIC CLINICAL DATA
-    # ============================================
+    # TAB 2: Eye-specific Clinical Data
     with tab2:
         st.header("Clinical Phenotyping")
         st.caption("Separate measurements for each eye")
@@ -248,14 +251,12 @@ if st.session_state.authenticated:
         with col_st2:
             staining_scale = st.selectbox("Staining Scale", ["Oxford (0-5)", "NEI (0-15)", "Baylor (0-4)"])
     
-    # ============================================
-    # 5️⃣ TEAR COLLECTION WITH TIMESTAMP
-    # ============================================
+    # TAB 3: Tear Collection with Timestamp
     with tab3:
         st.header("Tear Collection")
         st.caption("TEAR-RG Collection items C1-C12")
         
-        # 6️⃣ SAMPLING TIMESTAMP - circadian variation
+        # Sampling timestamp
         st.subheader("⏰ Collection Time")
         st.caption("Critical for circadian variation in tear proteins")
         
@@ -265,7 +266,7 @@ if st.session_state.authenticated:
         with col_time2:
             collection_time = st.time_input("Exact Collection Time", datetime.now().time(), key="collection_time")
         
-        # Automatska kategorizacija doba dana
+        # Time categorization
         hour = collection_time.hour
         if 5 <= hour < 12:
             time_category = "Morning"
@@ -338,9 +339,7 @@ if st.session_state.authenticated:
                 inhibitor_type = st.text_input("Inhibitor type", "Complete™")
             freeze_thaw = st.number_input("Freeze-thaw cycles", 0, 10, 1)
     
-    # ============================================
-    # 5️⃣ BIOMARKERS WITH UNIT VALIDATION
-    # ============================================
+    # TAB 5: Biomarkers with Unit Validation
     with tab5:
         st.header("Biomarker Analysis")
         
@@ -360,7 +359,7 @@ if st.session_state.authenticated:
                     value = st.number_input(
                         f"{biomarker} ({units[biomarker]})",
                         value=st.session_state.biomarker_data[biomarker],
-                        min_value=0.0,  # SPRJEČAVA NEGATIVNE VRIJEDNOSTI
+                        min_value=0.0,
                         format="%.2f",
                         key=f"input_{biomarker}"
                     )
@@ -387,7 +386,7 @@ if st.session_state.authenticated:
         st.markdown("---")
         st.header("📥 Data Export")
         
-        # Prikupi sve podatke u jedan dictionary
+        # Prikupi sve podatke
         current_patient = {
             # Study info
             "study_id": study_id,
@@ -477,7 +476,7 @@ if st.session_state.authenticated:
             "Lysozyme_value": st.session_state.biomarker_data["Lysozyme"]
         }
         
-        # Spremi u session state za bulk export
+        # Spremi u session state
         if st.button("💾 Save Current Patient to Session"):
             st.session_state.all_patients.append(current_patient)
             st.success(f"Saved patient {patient_id} (Total: {len(st.session_state.all_patients)})")
