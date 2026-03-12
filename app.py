@@ -234,13 +234,13 @@ with tab4:
         "Lysozyme_value": st.session_state.biomarker_data["Lysozyme"]
     }
     
+    df = pd.DataFrame([all_data])
+    
     # CSV Export
     col_csv, col_excel = st.columns(2)
     
     with col_csv:
-        df = pd.DataFrame([all_data])
         csv = df.to_csv(index=False)
-        
         st.download_button(
             label="📥 Download CSV",
             data=csv,
@@ -250,19 +250,29 @@ with tab4:
         )
     
     with col_excel:
-        # Excel export
-        output = io.BytesIO()
-        with pd.ExcelWriter(output, engine='openpyxl') as writer:
-            df.to_excel(writer, index=False, sheet_name='TEAR-RG_Data')
-        excel_data = output.getvalue()
-        
-        st.download_button(
-            label="📊 Download Excel",
-            data=excel_data,
-            file_name=f"tear_rg_{patient_id}_visit{visit_number}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            use_container_width=True
-        )
+        try:
+            # Probaj Excel export
+            output = io.BytesIO()
+            with pd.ExcelWriter(output, engine='openpyxl') as writer:
+                df.to_excel(writer, index=False, sheet_name='TEAR-RG_Data')
+            excel_data = output.getvalue()
+            
+            st.download_button(
+                label="📊 Download Excel",
+                data=excel_data,
+                file_name=f"tear_rg_{patient_id}_visit{visit_number}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                use_container_width=True
+            )
+        except:
+            st.warning("Excel export zahtijeva 'openpyxl'. Instaliraj: pip install openpyxl")
+            st.download_button(
+                label="📊 Download CSV (Excel alternative)",
+                data=csv,
+                file_name=f"tear_rg_{patient_id}_visit{visit_number}.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
     
     # Preview
     with st.expander("Preview data"):
