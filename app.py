@@ -19,7 +19,7 @@ st.set_page_config(
 )
 
 # ============================================
-# PHANTASMED LOGO - GORNJI DESNI KUT
+# PHANTASMED LOGO - IZ GITHUBA (bez mijenjanja!)
 # ============================================
 st.markdown("""
 <style>
@@ -29,13 +29,16 @@ st.markdown("""
         right: 20px;
         z-index: 1000;
         background-color: white;
-        padding: 5px 15px;
+        padding: 8px 15px;
         border-radius: 30px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         border: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .logo-container img {
-        height: 40px;
+        height: 45px;
         width: auto;
         display: block;
     }
@@ -44,7 +47,6 @@ st.markdown("""
             display: none;
         }
     }
-    /* Adjust main content to not be hidden under fixed logo */
     .main-header {
         margin-top: 0;
         padding-top: 0;
@@ -52,7 +54,8 @@ st.markdown("""
 </style>
 
 <div class="logo-container">
-    <img src="https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png" alt="Phantasmed Logo">
+    <img src="https://raw.githubusercontent.com/toni-mandusic/tear-film-analyzer/main/Phantasmed-logo.png" 
+         alt="Phantasmed Logo">
 </div>
 """, unsafe_allow_html=True)
 
