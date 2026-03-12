@@ -22,8 +22,8 @@ st.markdown("""
 <style>
     .logo-container {
         position: fixed;
-        top: 100px;
-        right: 200px;
+        top: 10px;
+        right: 20px;
         z-index: 1000;
         background-color: white;
         padding: 8px 15px;
@@ -35,7 +35,7 @@ st.markdown("""
         justify-content: center;
     }
     .logo-container img {
-        height: 145px;
+        height: 45px;
         width: auto;
         display: block;
     }
