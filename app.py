@@ -11,37 +11,11 @@ import plotly.graph_objects as go
 from datetime import datetime, time
 import io
 
-# Page config
-st.set_page_config(
-    page_title="TEAR-Film Analyzer - Maastricht UMC",
-    page_icon="🧪",
-    layout="wide"
-)
+st.set_page_config(page_title="TEAR-Film Analyzer", page_icon="🧪", layout="wide")
 
-# ============================================
-# SAKRIJ NULU I PUKNUTU SLIČICU
-# ============================================
-st.markdown("""
-<style>
-    /* Sakrij broj 0 */
-    .st-emotion-cache-10trblm {display: none !important;}
-    .st-emotion-cache-1dp5vir {display: none !important;}
-    
-    /* Sakrij puknutu sličicu */
-    img[src*="broken"] {display: none !important;}
-    img[alt*="broken"] {display: none !important;}
-    
-    /* Sakrij toolbar i header */
-    header {display: none !important;}
-    .stApp [data-testid="stToolbar"] {display: none !important;}
-    .stApp [data-testid="stStatus"] {display: none !important;}
-    .stApp [data-testid="stDecoration"] {display: none !important;}
-    .stApp [data-testid="baseButton-header"] {display: none !important;}
-    
-    /* Osiguraj da tvoj logo ostane */
-    .stImage img {display: block !important;}
-</style>
-""", unsafe_allow_html=True)
+st.title("🧪 TEAR-Film Analyzer")
+st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
+st.markdown("---")
 
 # ============================================
 # PHANTASMED LOGO - POVEĆAN NA 350
