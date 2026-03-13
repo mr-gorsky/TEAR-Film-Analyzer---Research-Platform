@@ -37,13 +37,13 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # ============================================
-# TVOJ LOGO
+# LOGO
 # ============================================
 col1, col2 = st.columns([3, 1])
 with col1:
     st.title("🧪 TEAR-Film Analyzer")
 with col2:
-    st.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=150)
+    st.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=350)
 
 st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
 st.markdown("---")
