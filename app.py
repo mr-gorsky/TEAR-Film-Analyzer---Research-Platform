@@ -11,11 +11,18 @@ import plotly.graph_objects as go
 from datetime import datetime, time
 import io
 
-st.set_page_config(page_title="TEAR-Film Analyzer", page_icon="🧪", layout="wide")
+# ============================================
+# PHANTASMED LOGO - POVEĆAN NA 350
+# ============================================
+col1, col2 = st.columns([2, 1])
+with col1:
+    st.title("🧪 TEAR-Film Analyzer")
+with col2:
+    st.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=350)
 
-st.title("🧪 TEAR-Film Analyzer")
 st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
 st.markdown("---")
+
 
 # Initialize session state
 if 'biomarker_data' not in st.session_state:
