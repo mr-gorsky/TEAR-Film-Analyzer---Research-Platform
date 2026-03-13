@@ -19,27 +19,34 @@ st.set_page_config(
 )
 
 # ============================================
-# SAKRIJ DEFAULT STREAMLIT ELEMENTE
+# SAKRIJ NULU I PUKNUTU SLIČICU
 # ============================================
-hide_streamlit_style = """
+st.markdown("""
 <style>
-    #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}
-    .stApp header {background-color: transparent;}
-    .stApp [data-testid="stToolbar"] {display: none;}
-    .stApp [data-testid="stDecoration"] {display: none;}
-    footer {display: none;}
-    #stStatus {display: none;}
-    .stApp [data-testid="stHeader"] {display: none;}
-    .stApp [data-testid="stToolbar"] {display: none;}
-    .stApp [data-testid="baseButton-header"] {display: none;}
+    /* Sakrij broj 0 */
+    .st-emotion-cache-10trblm {display: none !important;}
+    .st-emotion-cache-1dp5vir {display: none !important;}
+    
+    /* Sakrij puknutu sličicu */
+    img[src*="broken"] {display: none !important;}
+    img[alt*="broken"] {display: none !important;}
+    
+    /* Sakrij toolbar i header */
+    header {display: none !important;}
+    .stApp [data-testid="stToolbar"] {display: none !important;}
+    .stApp [data-testid="stStatus"] {display: none !important;}
+    .stApp [data-testid="stDecoration"] {display: none !important;}
+    .stApp [data-testid="baseButton-header"] {display: none !important;}
+    
+    /* Osiguraj da tvoj logo ostane */
+    .stImage img {display: block !important;}
 </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # ============================================
-# LOGO
+# PHANTASMED LOGO - POVEĆAN NA 350
 # ============================================
-col1, col2 = st.columns([3, 1])
+col1, col2 = st.columns([2, 1])
 with col1:
     st.title("🧪 TEAR-Film Analyzer")
 with col2:
