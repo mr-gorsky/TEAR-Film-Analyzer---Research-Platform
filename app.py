@@ -19,13 +19,31 @@ st.set_page_config(
 )
 
 # ============================================
-# PHANTASMED LOGO - U HEADERU
+# SAKRIJ DEFAULT STREAMLIT ELEMENTE
+# ============================================
+hide_streamlit_style = """
+<style>
+    #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}
+    .stApp header {background-color: transparent;}
+    .stApp [data-testid="stToolbar"] {display: none;}
+    .stApp [data-testid="stDecoration"] {display: none;}
+    footer {display: none;}
+    #stStatus {display: none;}
+    .stApp [data-testid="stHeader"] {display: none;}
+    .stApp [data-testid="stToolbar"] {display: none;}
+    .stApp [data-testid="baseButton-header"] {display: none;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# ============================================
+# TVOJ LOGO
 # ============================================
 col1, col2 = st.columns([3, 1])
 with col1:
     st.title("🧪 TEAR-Film Analyzer")
 with col2:
-    st.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=350)
+    st.image("https://i.postimg.cc/Kjsbj7xY/Phantasmed-logo.png", width=150)
 
 st.markdown("### Maastricht UMC - TEAR-Precision Research Platform")
 st.markdown("---")
